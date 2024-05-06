@@ -20,7 +20,7 @@ export default class AuthController {
 
     const user = await User.create(payload)
 
-    console.log("user : ", user)
+    console.log('user : ', user)
 
     return response.created(user)
   }
@@ -32,6 +32,6 @@ export default class AuthController {
       return response.badRequest({ message: 'Token not found' })
     }
     await User.accessTokens.delete(user, token)
-    return response.ok({ message: 'Logged out' }) 
+    return response.ok({ message: 'Logged out' })
   }
 }

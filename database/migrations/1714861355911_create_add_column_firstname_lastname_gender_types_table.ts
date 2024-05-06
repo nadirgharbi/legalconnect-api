@@ -1,14 +1,20 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'users'
+  protected tableName = 'appointments'
 
   async up() {
-    this.schema.alterTable(this.tableName, (table) => {
-      table.renameColumn('full_name', 'first_name')
-      table.string('last_name').notNullable()
-      table.enum('gender', ['Monsieur', 'Madame']).notNullable()
-      table.enum('type', ['Client', 'Professionnel']).notNullable()
+    this.schema.createTable(this.tableName, (table) => {
+      table.increments('id').notNullable()
+      table.string('reason').notNullable()
+      table.integer('client_id').unsigned().references('id').inTable('users').notNullable()
+      table.integer('pro_id').unsigned().references('id').inTable('users').notNullable()
+      table.dateTime('date').notNullable()
+      table.dateTime('starting_at').notNullable()
+      table.boolean('is_visio').notNullable()
+
+      table.timestamp('created_at').notNullable()
+      table.timestamp('updated_at').nullable()
     })
   }
 

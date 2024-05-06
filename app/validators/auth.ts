@@ -9,10 +9,10 @@ export const loginValidator = vine.compile(
 
 export const registerValidator = vine.compile(
   vine.object({
-    firstName: vine.string().minLength(3).maxLength(64),
-    lastName: vine.string().minLength(3).maxLength(64),
-    gender: vine.enum(['Monsieur', 'Madame']),
-    // type: vine.enum(['Client', 'Professionnel']),
+    firstname: vine.string().minLength(3).maxLength(64),
+    lastname: vine.string().minLength(3).maxLength(64),
+    gender: vine.enum(['M', 'F']),
+    usertype: vine.enum(['Client', 'Professionnel']),
     email: vine
       .string()
       .email()
@@ -27,5 +27,17 @@ export const registerValidator = vine.compile(
       .regex(/[A-Z]/)
       .minLength(8)
       .maxLength(32),
+
+    specialty: vine.string().optional(),
+    phone: vine.string().optional(),
+    office_name: vine.string().optional(),
+    adress: vine.string().optional(),
+    zip: vine.number().optional(),
+    city: vine.string().optional(),
+    country: vine.string().optional(),
+    sign: vine.string().optional(),
+    profile_picture: vine.string().optional(),
+    roles: vine.string().optional(),
+    description: vine.string().optional(),
   })
 )
