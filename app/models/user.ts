@@ -68,6 +68,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare description: string
 
+  @column()
+  declare opening_hours: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

@@ -39,5 +39,6 @@ export const registerValidator = vine.compile(
     profile_picture: vine.string().optional(),
     roles: vine.string().optional(),
     description: vine.string().optional(),
+    opening_hours: vine.string().optional(),
   })
 )
