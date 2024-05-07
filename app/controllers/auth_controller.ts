@@ -34,4 +34,6 @@ export default class AuthController {
     await User.accessTokens.delete(user, token)
     return response.ok({ message: 'Logged out' })
   }
+
+  
 }

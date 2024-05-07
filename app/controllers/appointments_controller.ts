@@ -7,7 +7,7 @@ export default class AppointmentsController {
   /**
    * Display a list of resource
    */
-  async index({auth}: HttpContext) {
+  async index({ auth }: HttpContext) {
     try {
       // Vérifier si l'utilisateur est correctement authentifié
       await auth.authenticate()
@@ -16,12 +16,21 @@ export default class AppointmentsController {
       const user = auth.user!
 
       // Récupérer l'ID de l'utilisateur
-      const clientID = user.id
+      const userID = user.id
 
-      // Récupérer les tâches de l'utilisateur
-      const clientAppointments = await User.query().where('client_id', clientID).exec()
-
-      return clientAppointments
+      // Vérifier le type de l'utilisateur
+      if (user.usertype === 'Client') {
+        // Récupérer les rendez-vous du client
+        const clientAppointments = await Appointment.query().where('client_id', userID).exec()
+        return clientAppointments
+      } else if (user.usertype === 'Professionnel') {
+        // Récupérer les rendez-vous du professionnel
+        const proAppointments = await Appointment.query().where('pro_id', userID).exec()
+        return proAppointments
+      } else {
+        // Si l'utilisateur n'est ni client ni professionnel, retourner une réponse vide
+        return []
+      }
     } catch (error) {
       console.log(error)
       // Gérer les erreurs ici

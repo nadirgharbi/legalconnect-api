@@ -18,9 +18,11 @@ export default class ProsController {
     try {
       const proId = params.id
 
-      const pro = await User.query().where('usertype', 'Professionnel').where("id", proId).exec() // get pro id
+      const pro = await User.query().where('usertype', 'Professionnel').where('id', proId).exec() // get pro id
 
-      return response.ok(pro)
+      pro.map((e) => {
+        return response.ok(e)
+      })
     } catch (error) {
       return response.badRequest(error.message)
     }

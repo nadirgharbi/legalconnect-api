@@ -78,7 +78,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime | null
 
   @hasMany(() => Appointment, {
-    foreignKey: 'userId',
+    foreignKey: 'client_id',
   })
   declare todo: HasMany<typeof Appointment>
 
