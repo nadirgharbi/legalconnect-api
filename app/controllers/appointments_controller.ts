@@ -1,5 +1,5 @@
 import Appointment from '#models/appointment'
-import User from '#models/user'
+// import User from '#models/user'
 import { createAppointmentValidator, updateAppointmentsValidator } from '#validators/appointment'
 import type { HttpContext } from '@adonisjs/core/http'
 
