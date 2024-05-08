@@ -9,8 +9,8 @@ export default class extends BaseSchema {
       table.string('reason').notNullable()
       table.integer('client_id').unsigned().references('id').inTable('users').notNullable()
       table.integer('pro_id').unsigned().references('id').inTable('users').notNullable()
-      table.dateTime('date').notNullable()
-      table.dateTime('starting_at').notNullable()
+      table.timestamp('date').notNullable()
+      table.timestamp('starting_at').notNullable()
       table.boolean('is_visio').notNullable()
 
       table.timestamp('created_at').notNullable()

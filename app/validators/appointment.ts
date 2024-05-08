@@ -5,8 +5,8 @@ export const createAppointmentValidator = vine.compile(
     reason: vine.string().trim(),
     client_id: vine.number(),
     pro_id: vine.number(),
-    date: vine.date(),
-    starting_at: vine.date(),
+    date: vine.date().nullable(),
+    starting_at: vine.date().nullable(),
     is_visio: vine.boolean(),
   })
 )

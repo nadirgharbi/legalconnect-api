@@ -17,10 +17,10 @@ export default class Appointment extends BaseModel {
   declare pro_id: number
 
   @column()
-  declare date: DateTime
+  declare date: any
 
   @column()
-  declare starting_at: DateTime
+  declare starting_at: any
 
   @column()
   declare is_visio: boolean
