@@ -45,7 +45,7 @@ router
               const user = auth.getUserOrFail()
               return response.ok(user)
             } catch (error) {
-              return response.unauthorized({ error: 'User not found' })
+              return response.unauthorized({ error: 'User not found' }) 
             }
           })
           .use(middleware.auth())
