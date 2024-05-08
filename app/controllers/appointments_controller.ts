@@ -1,4 +1,5 @@
 import Appointment from '#models/appointment'
+import User from '#models/user'
 // import User from '#models/user'
 import { createAppointmentValidator, updateAppointmentsValidator } from '#validators/appointment'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -41,11 +42,33 @@ export default class AppointmentsController {
   /**
    * Display form to create a new record
    */
-  async create({ request, response }: HttpContext) {
+  async create({ request, response, auth }: HttpContext) {
     try {
+      await auth.authenticate()
+
+      const user = auth.user!
+      const userId = user.id
+
+      const userPro = await User.query()
+        .where('usertype', 'Professionnel')
+        .where('id', userId)
+        .exec()
+
+      const userClient = await User.query().where('usertype', 'Client').where('id', userId).exec()
+
       const payload = await request.validateUsing(createAppointmentValidator)
-      const appointment = await Appointment.create(payload)
-      return response.created(appointment)
+
+      // Ajout du rendez vous uniquement si les id du client et du pro corressponde
+      if (
+        (userClient[0].usertype === 'Client' && userId === payload.client_id) ||
+        (userPro[0].usertype === 'Professionnel' && userId === payload.pro_id)
+      ) {
+        const appointment = await Appointment.create(payload)
+        // response.ok
+        return response.created(appointment)
+      } else {
+        return response.unauthorized()
+      }
     } catch (error) {
       console.log(error)
 
