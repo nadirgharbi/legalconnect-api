@@ -49,20 +49,12 @@ export default class AppointmentsController {
       const user = auth.user!
       const userId = user.id
 
-      const userPro = await User.query()
-        .where('usertype', 'Professionnel')
-        .where('id', userId)
-        .exec()
-
       const userClient = await User.query().where('usertype', 'Client').where('id', userId).exec()
 
       const payload = await request.validateUsing(createAppointmentValidator)
 
       // Ajout du rendez vous uniquement si les id du client et du pro corressponde
-      if (
-        (userClient[0].usertype === 'Client' && userId === payload.client_id) ||
-        (userPro[0].usertype === 'Professionnel' && userId === payload.pro_id)
-      ) {
+      if (userClient[0].usertype === 'Client' && userId === payload.client_id) {
         const appointment = await Appointment.create(payload)
         // response.ok
         return response.created(appointment)

@@ -1,5 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
+import { updateUserValidator } from '#validators/auth'
 
 export default class UsersController {
   /**
@@ -14,16 +15,18 @@ export default class UsersController {
 
     const userId = params.id
 
-    const getUser = await User.query().where('usertype', 'Client').where('id', userId).exec()
+    try {
+      const getUser = await User.query().where('usertype', 'Client').where('id', userId).exec()
 
-    getUser.map((e) => {
-      return response.ok(e)
-    })
-    // try {
-    // } catch (error) {
-    //   return response.badRequest
-    // }
+      getUser.map((e) => {
+        return response.ok(e)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  
 
   /**
    * Handle form submission for the edit action

@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { loginValidator, registerValidator } from '#validators/auth'
+import { loginValidator, registerValidator, updateUserValidator } from '#validators/auth'
 import User from '#models/user'
 
 export default class AuthController {
@@ -33,5 +33,21 @@ export default class AuthController {
     }
     await User.accessTokens.delete(user, token)
     return response.ok({ message: 'Logged out' })
+  }
+
+  async update({ auth, request, response }: HttpContext) {
+    try {
+      await auth.authenticate()
+      const user = auth.user!
+
+      const payload = await request.validateUsing(updateUserValidator)
+
+      user.merge(payload) // fusion des imformations que l'utilisateur modifie
+
+      user.save()
+      return response.ok(user)
+    } catch (error) {
+      return error
+    }
   }
 }

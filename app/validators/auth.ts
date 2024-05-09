@@ -42,3 +42,22 @@ export const registerValidator = vine.compile(
     opening_hours: vine.string().optional(),
   })
 )
+
+export const updateUserValidator = vine.compile(
+  vine.object({
+    firstname: vine.string().minLength(3).maxLength(64).optional(),
+    lastname: vine.string().minLength(3).maxLength(64).optional(),
+    speciality: vine.string().optional(),
+    phone: vine.string().optional(),
+    office_name: vine.string().optional(),
+    adress: vine.string().optional(),
+    zip: vine.number().optional(),
+    city: vine.string().optional(),
+    country: vine.string().optional(),
+    sign: vine.string().optional(),
+    profile_picture: vine.string().optional(),
+    roles: vine.string().optional(),
+    description: vine.string().optional(),
+    opening_hours: vine.string().optional(),
+  })
+)

@@ -12,6 +12,7 @@ import { middleware } from './kernel.js'
 import AppointmentsController from '#controllers/appointments_controller'
 import ProsController from '#controllers/pros_controller'
 import UsersController from '#controllers/users_controller'
+import { HttpContext } from '@adonisjs/core/http'
 
 const AuthController = () => import('#controllers/auth_controller')
 
@@ -47,6 +48,8 @@ router
         router.post('register', [AuthController, 'register'])
         router.post('login', [AuthController, 'login'])
         router.post('logout', [AuthController, 'logout']).use(middleware.auth())
+        router.put('user/update', [AuthController, 'update']).use(middleware.auth())
+
         router
           .get('user', async ({ auth, response }) => {
             try {
