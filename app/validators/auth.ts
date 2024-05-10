@@ -28,7 +28,7 @@ export const registerValidator = vine.compile(
       .minLength(8)
       .maxLength(32),
 
-    speciality: vine.string(),
+    speciality: vine.string().optional(),
     phone: vine.string().optional(),
     office_name: vine.string().optional(),
     adress: vine.string().optional(),
