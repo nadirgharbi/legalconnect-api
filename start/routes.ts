@@ -12,7 +12,6 @@ import { middleware } from './kernel.js'
 import AppointmentsController from '#controllers/appointments_controller'
 import ProsController from '#controllers/pros_controller'
 import UsersController from '#controllers/users_controller'
-import { HttpContext } from '@adonisjs/core/http'
 
 const AuthController = () => import('#controllers/auth_controller')
 

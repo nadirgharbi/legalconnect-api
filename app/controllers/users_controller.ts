@@ -1,7 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
-import { updateUserValidator } from '#validators/auth'
-
 export default class UsersController {
   /**
    * Display a list of resource
@@ -25,11 +23,4 @@ export default class UsersController {
       console.log(error)
     }
   }
-
-  
-
-  /**
-   * Handle form submission for the edit action
-   */
-  // async update({ params, request }: HttpContext) {}
 }
